@@ -36,7 +36,7 @@ main() {
         final String grinder = package.lib.path.toString();
 
         expect(grinder.startsWith(myLocalPathToGrinder), isTrue);
-        expect(package.lib.path.endsWith("lib/"), isTrue);
+        expect(package.lib.path.endsWith("lib"), isTrue);
 
     }); // end of 'Test path' test
 
@@ -47,16 +47,16 @@ main() {
         expect(package.uri.path.endsWith("/src/ansi.dart"), isTrue);
     }); // end of 'Uri' test
 
-    test('> Resource', () async {
-        final Package package = packages.resolvePackageUri(Uri.parse("package:grinder/src/ansi.dart"));
-        final Uri uri = await package.resource;
-        print(uri);
-
-    }); // end of 'Resource' test
+//    test('> Resource', () async {
+//        final Package package = packages.resolvePackageUri(Uri.parse("package:grinder/src/ansi.dart"));
+//        final Uri uri = await package.resource;
+//        print(uri);
+//
+//    }); // end of 'Resource' test
 
     test('> Path to local lib', () {
         final Package packageForThisLib = packages.resolvePackageUri(Uri.parse("package:packages"));
-        expect(packageForThisLib.lib.path,"lib/");
+        expect(packageForThisLib.lib.path,"lib");
     }); // end of 'Path to local lib' test
 
     test('> Wrong package scheme', () {
@@ -74,7 +74,5 @@ main() {
     test('> Package is not available', () {
         expect(() => packages.resolvePackageUri(Uri.parse("package:abc/hallo.txt")), throwsRangeError);
     }); // end of 'Package is not available' test
-
-
 
 }

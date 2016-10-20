@@ -8,12 +8,17 @@ version: 1.0.0
 environment:
   sdk: '>=1.0.0 <2.0.0'
 
-dependencies:
-  logging: any
-  logging_handlers: any
-  console_log_handler: any
+# Add the bin/packages.dart script to the scripts pub installs.
+# Activate local repo:
+#   pub global activate --source path .
+#
+executables:
+  packages:
 
-  validate: any
+dependencies:
+  logging: ^0.11.0
+  logging_handlers: ^0.8.0
+  console_log_handler: ^0.1.0
 
   args: any
 

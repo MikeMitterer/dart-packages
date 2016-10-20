@@ -37,7 +37,7 @@ class Packages {
         }
 
         if(uri.path == null || uri.path.isEmpty) {
-            throw new ArgumentError("Invalid package path!");
+            throw new ArgumentError("Invalid package path! (${uri})");
         }
 
         // First path element ist the packagename
@@ -51,7 +51,19 @@ class Packages {
             throw new RangeError("Could not find $packagename in your .packages-File");
         }
 
-        return new Package(uri,packagename,Uri.parse(_packages[packagename]));
+        return new Package(uri,packagename,Uri.parse(path.normalize(_packages[packagename])));
+    }
+
+    /// Returns all packages in .packages-File
+    List<Package> get all {
+        if(_packages.isEmpty && packagesFile.existsSync()) {
+            _readPackagesFile();
+        }
+        final List<Package> packages = new List<Package>();
+        _packages.keys.forEach((final String packagename) {
+            packages.add(resolvePackageUri(Uri.parse("package:$packagename")));
+        });
+        return packages;
     }
 
     //- private --------------------------------------------------------------------------------------------------------
@@ -65,7 +77,7 @@ class Packages {
         final List<String> lines = packagesFile.readAsLinesSync();
 
         _packages.clear();
-        lines.where((final String line) => line.contains(":"))
+        lines.where((final String line) => line.contains(":") && !line.trim().startsWith("#"))
             .forEach((final String line) {
 
             final int index  = line.indexOf(":");
@@ -101,6 +113,6 @@ class Package {
 
     /// Full path to uri
     Uri get uri {
-        return Uri.parse("${lib}${_base.path.replaceFirst(packagename,"")}");
+        return Uri.parse(path.normalize("${lib}${_base.path.replaceFirst(packagename,"")}"));
     }
 }
