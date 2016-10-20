@@ -1,0 +1,24 @@
+name: packages
+description: Add your description for packages
+author: Mike Mitterer <office@mikemitterer.at>
+homepage: https://github.com/Mike Mitterer/dart-packages
+
+version: 1.0.0
+
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+
+dependencies:
+  logging: any
+  logging_handlers: any
+  console_log_handler: any
+
+  validate: any
+
+  args: any
+
+  path: ^1.3.0
+
+dev_dependencies:
+  test: any
+  grinder: any
