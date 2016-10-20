@@ -3,7 +3,7 @@
 
 ### Use as library
 
-```
+```dart
 final Package package = packages.resolvePackageUri(
     Uri.parse("package:grinder")
     );
@@ -24,7 +24,7 @@ print(resource);
 
 or if you want a specific file in a package
 
-```
+```dart
 final Package package = packages.resolvePackageUri(
     Uri.parse("package:grinder/src/ansi.dart")
     );
