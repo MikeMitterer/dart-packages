@@ -3,7 +3,7 @@ description: Add your description for packages
 author: Mike Mitterer <office@mikemitterer.at>
 homepage: https://github.com/Mike Mitterer/dart-packages
 
-version: 0.1.0
+version: 0.1.1
 
 environment:
   sdk: '>=1.8.0 <2.0.0'
