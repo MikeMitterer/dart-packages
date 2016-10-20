@@ -4,46 +4,47 @@
 ### Use as library
 
 ```
-    final Package package = packages.resolvePackageUri(Uri.parse("package:grinder"));
+final Package package = packages.resolvePackageUri(
+    Uri.parse("package:grinder")
+    );
 
-    print(package.packagename); 
-    // grinder
-    
-    print(package.lib.path); 
-    // file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib;
-    
-    print(package.uri.path); 
-    // file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib;    
+print(package.packagename); // grinder
 
-    final Uri resource = await package.resource;
-    print(resource); 
-    // http://localhost:62232/packages/grinder
+print(package.lib.path); 
+// file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib;
+
+print(package.uri.path); 
+// file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib;    
+
+final Uri resource = await package.resource;
+print(resource); 
+// http://localhost:62232/packages/grinder
         
 ```
 
 or if you want a specific file in a package
 
 ```
-    final Package package = packages.resolvePackageUri(Uri.parse("package:grinder/src/ansi.dart"));
+final Package package = packages.resolvePackageUri(
+    Uri.parse("package:grinder/src/ansi.dart")
+    );
 
-    print(package.packagename); 
-    // grinder
-    
-    print(package.lib.path); 
-    // file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib;
-    
-    print(package.uri.path); 
-    // file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib/src/ansi.dart;    
+print(package.packagename); // grinder
 
-    final Uri resource = await package.resource;
-    print(resource); 
-    // http://localhost:62232/packages/grinder/src/ansi.dart    
+print(package.lib.path); 
+// file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib;
+
+print(package.uri.path); 
+// file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib/src/ansi.dart;    
+
+final Uri resource = await package.resource;
+print(resource); 
+// http://localhost:62232/packages/grinder/src/ansi.dart    
 ```
 
 ### Use as cmdline application
 
 ```bash
-
 Usage: packages [options] <packagename>
     -h, --[no-]help       Shows this help information
     -l, --[no-]list       Lists all packages
@@ -53,12 +54,12 @@ Usage: packages [options] <packagename>
 
 ##### Sample output:
 ```bash
-    packages -v package:grinder/src/ansi.dart
-    
-    Name: grinder
-        Lib: file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib
-        Uri: file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib/src/ansi.dart
-        Resource: http://localhost:62788/packages/grinder/src/ansi.dart
+packages -v package:grinder/src/ansi.dart
+
+Name: grinder
+    Lib: file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib
+    Uri: file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3/lib/src/ansi.dart
+    Resource: http://localhost:62788/packages/grinder/src/ansi.dart
 ```
 Install 'Packages'
 ```shell
