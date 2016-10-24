@@ -40,6 +40,11 @@ main() {
 
     }); // end of 'Test path' test
 
+    test('> Package for this package (should be lib);', () {
+        final Package package = packages.resolvePackageUri(Uri.parse("package:packages"));
+        expect(package.lib.toString(),"lib");
+    }); // end of 'Package for this package (should be lib)' test
+
     test('> Uri', () {
         final Package package = packages.resolvePackageUri(Uri.parse("package:grinder/src/ansi.dart"));
         expect(package.packagename, "grinder");
@@ -53,6 +58,22 @@ main() {
 //        print(uri);
 //
 //    }); // end of 'Resource' test
+
+    test('> Root', () {
+        final Package package = packages.resolvePackageUri(Uri.parse("package:grinder"));
+        final String purePackageWithoutVersion = package.root.toString().replaceFirst(
+            new RegExp(r"grinder-[0-9.+]*$"),"grinder");
+
+        expect(purePackageWithoutVersion.endsWith("grinder"), isTrue);
+    }); // end of 'Root' test
+
+    test('> Root for current package', () {
+        final Package package = packages.resolvePackageUri(Uri.parse("package:packages"));
+
+        // Path to local Packages-Folder: '/Volumes/Daten/DevLocal/DevDart/Packages'
+        expect(package.root.toString().endsWith("/Packages"), isTrue);
+
+    }); // end of 'Root for current package' test
 
     test('> Path to local lib', () {
         final Package packageForThisLib = packages.resolvePackageUri(Uri.parse("package:packages"));

@@ -110,6 +110,7 @@ class _DetailsPrinter extends _Printer {
         print("Name: ${package.packagename}");
         print("    Lib: ${package.lib.toString()}");
         print("    Uri: ${package.uri.toString()}");
+        print("    Root: ${package.root.toString()}");
         print("    Resource: ${resource.toString()}");
     }
 }

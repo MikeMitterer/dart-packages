@@ -102,6 +102,9 @@ class Package {
     /// Absolute path to package
     ///
     /// Can be a relative path like "../../lib" or can start with "file:///..."
+    /// "lib" for the requesting library/package
+    ///
+    /// E.g. if the "packages" library ask for "lib" it returns "lib"
     final Uri lib;
 
     Package(this._base, this.packagename,this.lib);
@@ -114,5 +117,23 @@ class Package {
     /// Full path to uri
     Uri get uri {
         return Uri.parse(path.normalize("${lib}${_base.path.replaceFirst(packagename,"")}"));
+    }
+
+    /// Package-root (without /lib at the end)
+    ///
+    /// The returned [Uri] always starts with "file://"
+    /// Returns ALWAYS the full path to the package-root
+    Uri get root {
+        String packageRoot = lib.toString().replaceFirst(new RegExp(r"/lib$"),"");
+
+        // "lib" indicates that
+        // it refers to the package requesting this information
+        if(packageRoot == "lib") {
+            packageRoot = path.current;
+        }
+        if(!packageRoot.startsWith("file://")) {
+            packageRoot = "file://${packageRoot}";
+        }
+        return Uri.parse(packageRoot);
     }
 }

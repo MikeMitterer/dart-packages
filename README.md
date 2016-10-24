@@ -20,6 +20,8 @@ final Uri resource = await package.resource;
 print(resource); 
 // http://localhost:62232/packages/grinder
         
+print(package.root);
+// file:///Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-0.8.0+3
 ```
 
 or if you want a specific file in a package
