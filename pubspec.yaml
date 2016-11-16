@@ -1,5 +1,5 @@
 name: packages
-description: Add your description for packages
+description: Resolves a package name to its path on your HD
 author: Mike Mitterer <office@mikemitterer.at>
 homepage: https://github.com/Mike Mitterer/dart-packages
 
