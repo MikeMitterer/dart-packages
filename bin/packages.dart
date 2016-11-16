@@ -101,7 +101,7 @@ class _Printer {
 }
 
 class _DetailsPrinter extends _Printer {
-    static final int _MARGIN = 4;
+    //static final int _MARGIN = 4;
 
     @override
     Future show(final Package package) async {
