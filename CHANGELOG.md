@@ -1,5 +1,10 @@
 # Change Log for packages
-Add your description for packages
+Resolves a package name to its path on your HD
+
+## [v0.1.6](http://github.com/mikemitterer/dart-packages/compare/v0.1.5...v0.1.6) - 2016-11-16
+
+### Docs
+* Description for package [b960ea0](https://github.com/mikemitterer/dart-packages/commit/b960ea07016b85f4da3071dbc6ff541473bf81c6)
 
 ## [v0.1.5](http://github.com/mikemitterer/dart-packages/compare/v0.1.4...v0.1.5) - 2016-11-16
 
