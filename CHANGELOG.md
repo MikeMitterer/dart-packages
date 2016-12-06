@@ -1,6 +1,11 @@
 # Change Log for packages
 Resolves a package name to its path on your HD
 
+## [v0.1.7](http://github.com/mikemitterer/dart-packages/compare/v0.1.6...v0.1.7) - 2016-12-06
+
+### Docs
+* Better usage-sample in README [3ca029e](https://github.com/mikemitterer/dart-packages/commit/3ca029e10acb7a530cebced6ce263e2a65e1a018)
+
 ## [v0.1.6](http://github.com/mikemitterer/dart-packages/compare/v0.1.5...v0.1.6) - 2016-11-16
 
 ### Docs
