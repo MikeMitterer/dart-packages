@@ -3,7 +3,18 @@
 
 ### Use as library
 
+pubspec.yaml
+```yaml
+  ...  
+  dependencies:
+    packages: ^0.1.0
+
+```
+
 ```dart
+import 'package:packages/packages.dart';
+
+final Packages packages = new Packages();
 final Package package = packages.resolvePackageUri(
     Uri.parse("package:grinder")
     );
