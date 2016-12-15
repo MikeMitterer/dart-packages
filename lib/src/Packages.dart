@@ -28,7 +28,7 @@ class Packages {
     final Map<String,String> _packages = new Map<String,String>();
 
     Package resolvePackageUri(final Uri uri) {
-        if(_packages.isEmpty && packagesFile.existsSync()) {
+        if(_packages.isEmpty && hasPackages) {
             _readPackagesFile();
         }
 
@@ -64,6 +64,11 @@ class Packages {
             packages.add(resolvePackageUri(Uri.parse("package:$packagename")));
         });
         return packages;
+    }
+
+    /// Returns true if .packages-File is available
+    bool get hasPackages {
+        return packagesFile.existsSync();
     }
 
     //- private --------------------------------------------------------------------------------------------------------

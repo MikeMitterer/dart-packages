@@ -96,4 +96,8 @@ main() {
         expect(() => packages.resolvePackageUri(Uri.parse("package:abc/hallo.txt")), throwsRangeError);
     }); // end of 'Package is not available' test
 
+    test('> Check for .packages-Folder', () {
+        expect(packages.hasPackages, isTrue);
+    }); // end of 'Check for .packages-Folder' test
+            
 }
