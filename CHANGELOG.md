@@ -1,6 +1,11 @@
 # Change Log for packages
 Resolves a package name to its path on your HD
 
+## [v0.1.8](http://github.com/mikemitterer/dart-packages/compare/v0.1.7...v0.1.8) - 2016-12-15
+
+### Feature
+* hasPackages returns true if lib finds a .packages file [64f95c2](https://github.com/mikemitterer/dart-packages/commit/64f95c2294e3cf7146df33c8b0bc577e9c8d3c04)
+
 ## [v0.1.7](http://github.com/mikemitterer/dart-packages/compare/v0.1.6...v0.1.7) - 2016-12-06
 
 ### Docs
