@@ -1,6 +1,11 @@
 # Change Log for packages
 Resolves a package name to its path on your HD
 
+## [Unreleased](http://github.com/mikemitterer/dart-packages/compare/v0.2...HEAD)
+
+### Refactor
+* Updated dependencies, Jenkins preparation [148b812](https://github.com/mikemitterer/dart-packages/commit/148b8129e1319acce106be4e059a451d66b5b5d6)
+
 ## [v0.1.8](http://github.com/mikemitterer/dart-packages/compare/v0.1.7...v0.1.8) - 2016-12-15
 
 ### Feature
