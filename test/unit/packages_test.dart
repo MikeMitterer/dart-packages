@@ -24,7 +24,7 @@ import 'package:packages/packages.dart';
 
 main() {
     final Packages packages = new Packages();
-    final String myLocalPathToGrinder = "/Users/mikemitterer/.pub-cache/hosted/pub.dartlang.org/grinder-";
+    final String myLocalPathToGrinder = ".pub-cache/hosted/pub.dartlang.org/grinder-";
 
     test('> Packagename', () {
         final Package package = packages.resolvePackageUri(Uri.parse("package:grinder"));
@@ -33,9 +33,12 @@ main() {
 
     test('> Lib-Path', () {
         final Package package = packages.resolvePackageUri(Uri.parse("package:grinder"));
-        final String grinder = package.lib.path.toString();
+        final String grinder = package.lib.path.toString().replaceFirst(
+            new RegExp(r".*\.pub-cache"), ".pub-cache");
 
-        expect(grinder.startsWith(myLocalPathToGrinder), isTrue);
+        expect(grinder.startsWith(myLocalPathToGrinder), isTrue,
+            reason: "Package for grinder should start with ${myLocalPathToGrinder} but was ${grinder}");
+        
         expect(package.lib.path.endsWith("lib"), isTrue);
 
     }); // end of 'Test path' test
@@ -47,8 +50,15 @@ main() {
 
     test('> Uri', () {
         final Package package = packages.resolvePackageUri(Uri.parse("package:grinder/src/ansi.dart"));
+
         expect(package.packagename, "grinder");
-        expect(package.uri.path.startsWith(myLocalPathToGrinder), isTrue);
+
+        final String cleanPath = package.uri.path.replaceFirst(
+            new RegExp(r".*\.pub-cache"), ".pub-cache");
+
+        expect(cleanPath.startsWith(myLocalPathToGrinder), isTrue,
+            reason: "package.uri.path should start with ${myLocalPathToGrinder} but was ${cleanPath}");
+
         expect(package.uri.path.endsWith("/src/ansi.dart"), isTrue);
     }); // end of 'Uri' test
 
