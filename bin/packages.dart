@@ -18,8 +18,7 @@
  */
 
 import 'dart:async';
-import 'package:logging/logging.dart';
-import 'package:logging_handlers/logging_handlers_shared.dart';
+import 'package:console_log_handler/print_log_handler.dart';
 import 'package:packages/packages.dart';
 import 'package:args/args.dart';
 
@@ -134,7 +133,7 @@ void _configLogging(final String loglevel) {
             Logger.root.level = Level.INFO;
     }
 
-    Logger.root.onRecord.listen(new LogPrintHandler(messageFormat: "%m"));
+    Logger.root.onRecord.listen(new LogPrintHandler());
 }
 
 

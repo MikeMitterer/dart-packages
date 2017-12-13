@@ -8,13 +8,17 @@ build() {
 }
 
 @Task()
-@Depends(analyze)
-test() {
+@Depends(analyze, testUnit)
+test() { }
+
+@Task()
+testUnit() {
     new TestRunner().testAsync(files: "test/unit");
 
     // All tests with @TestOn("content-shell") in header
     // new TestRunner().test(files: "test/unit",platformSelector: "content-shell");
 }
+
 
 @Task()
 analyze() {
