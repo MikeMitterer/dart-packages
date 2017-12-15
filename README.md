@@ -1,6 +1,8 @@
 # Packages
 > Resolves a package name to its path on your HD  
 
+Since version v0.3 it also supports `pub global activate` packages!
+
 ### Use as library
 
 pubspec.yaml
@@ -52,7 +54,12 @@ print(package.uri.path);
 
 final Uri resource = await package.resource;
 print(resource); 
-// http://localhost:62232/packages/grinder/src/ansi.dart    
+// http://localhost:62232/packages/grinder/src/ansi.dart
+
+// Global packages
+final globals = await packages.globals;
+final localPackages = globals.where((final GlobalPackage package) => package.hasPath);
+localPackages.forEach((final package) => print(package.path.value));
 ```
 
 ### Use as cmdline application
@@ -61,6 +68,7 @@ print(resource);
 Usage: packages [options] <packagename>
     -h, --[no-]help       Shows this help information
     -l, --[no-]list       Lists all packages
+    -g, --[no-]globals    Lists all global packages    
     -v, --[no-]verbose    More package details
 
 ```

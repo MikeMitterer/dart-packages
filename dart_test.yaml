@@ -1,0 +1,6 @@
+# VM-Base Project - so default is VM
+platforms: [ vm ]
+
+paths:
+  - test/unit
+

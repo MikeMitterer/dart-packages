@@ -66,6 +66,39 @@ class Packages {
         return packages;
     }
 
+    /// All packages activated via "pub global activate"
+    Future<List<GlobalPackage>> get globals async {
+        final packages = await _readGlobalPackages();
+        final globalPackages = new List<GlobalPackage>();
+
+        packages.forEach((final String line) {
+            final List<String> segments = line.split(" ");
+            // 2 Segments = hosted package (~/.pub-cache/hosted/pub.dartlang.org)
+            // e.g. sass 1.0.0-alpha.9
+            if(segments.length == 2) {
+                final String name = segments[0];
+                final String version = segments[1];
+
+                // Maybe we can resolve the packagename
+                try {
+                    final Package package = resolvePackageUri(Uri.parse("package:${name}"));
+                    globalPackages.add(new GlobalPackage(name, version, package.root.toFilePath()));
+
+                } catch(_) {
+                    globalPackages.add(new GlobalPackage(name, version));
+                }
+            }
+            // More segments = Local activated Package
+            // e.g. l10n 0.18.0 at path "/Volumes/Daten/DevLocal/DevDart/L10N4Dart"
+            else if(segments.length == 5) {
+                globalPackages.add(
+                    new GlobalPackage(segments[0], segments[1], segments[4].replaceAll('"', "")));
+            }
+        });
+
+        return globalPackages;
+    }
+
     /// Returns true if .packages-File is available
     bool get hasPackages {
         return packagesFile.existsSync();
@@ -92,12 +125,29 @@ class Packages {
             _packages[package] = packagePath;
         } );
     }
+
+    
+    /// Reads all the "pub global" activated packages
+    Future<List<String>> _readGlobalPackages() async {
+        final ProcessResult result = await Process.run("pub", [ "global", "list" ]);
+        if (result.exitCode != 0) {
+            throw new ArgumentError("'pub global list' faild with: ${(result.stderr as String).trim()}!");
+        }
+        return result.stdout.toString().split("\n");
+    }
+}
+
+/// Shared class between [Package] and [GlobalPackage]
+abstract class PackageBase {
+    /// The packagename defined in pubspec.yaml
+    final String packagename;
+
+  PackageBase(this.packagename);
+
 }
 
 /// Details about the requested package
-class Package {
-    /// The packagename defined in pubspec.yaml
-    final String packagename;
+class Package extends PackageBase {
 
     /// The basis for the request
     ///
@@ -112,7 +162,7 @@ class Package {
     /// E.g. if the "packages" library ask for "lib" it returns "lib"
     final Uri lib;
 
-    Package(this._base, this.packagename,this.lib);
+    Package(this._base, final String packagename, this.lib) : super(packagename);
 
     /// Uri to localhost
     Future<Uri> get resource {
@@ -141,4 +191,15 @@ class Package {
         }
         return Uri.parse(packageRoot);
     }
+}
+
+class GlobalPackage extends PackageBase {
+    final String version;
+    final Optional<String> path;
+
+    GlobalPackage(final String packagename, this.version, [ final String path ])
+        : this.path = new Optional.ofNullable(path), super(packagename);
+
+    bool get hasPath => path.isPresent;
+
 }

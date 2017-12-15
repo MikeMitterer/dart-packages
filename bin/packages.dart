@@ -22,10 +22,11 @@ import 'package:console_log_handler/print_log_handler.dart';
 import 'package:packages/packages.dart';
 import 'package:args/args.dart';
 
-void main(final List<String> arguments) {
+Future main(final List<String> arguments) async {
     final Logger _logger = new Logger("packages.cmdline.main");
 
     final Packages packages = new Packages();
+    final List<GlobalPackage> globals = await packages.globals;
     final _Application application = new _Application();
 
     _configLogging("info");
@@ -33,6 +34,7 @@ void main(final List<String> arguments) {
     try {
         final ArgResults results = application.parse(arguments);
         final _Printer printer = results.wasParsed("verbose") ? new _DetailsPrinter() : new _Printer();
+        final _GlobalPrinter globalPrinter = results.wasParsed("verbose") ? new _GlobalDetailsPrinter() : new _GlobalPrinter();
 
         if(results.wasParsed("help")) {
             application.showUsage();
@@ -42,6 +44,14 @@ void main(final List<String> arguments) {
         if(results.wasParsed("list")) {
             packages.all.forEach((final Package package) {
                 printer.show(package);
+            });
+            return;
+        }
+
+        if(results.wasParsed("globals")) {
+            globals.sort((a,b) => (a.hasPath && !b.hasPath ? -1 : 1));
+            globals.forEach((final GlobalPackage package) {
+                globalPrinter.show(package);
             });
             return;
         }
@@ -57,7 +67,13 @@ void main(final List<String> arguments) {
             printer.show(packages.resolvePackageUri(Uri.parse(package)));
 
         } catch (error) {
-            _logger.shout(error);
+            final List<GlobalPackage> _packages = globals.where(
+                    (final GlobalPackage package) => package.packagename == request);
+            if(_packages.isNotEmpty) {
+                globalPrinter.show(_packages.first);
+            } else {
+                _logger.shout(error);
+            }
         }
 
     } on FormatException catch(error) {
@@ -87,6 +103,7 @@ class _Application {
         return new ArgParser()
             ..addFlag("help", abbr: "h", help: "Shows this help information")
             ..addFlag("list", abbr: "l", help: "Lists all packages")
+            ..addFlag("globals", abbr: "g", help: "Lists all global packages")
             ..addFlag("verbose", abbr: "v", help: "More package details")
         ;
     }
@@ -96,6 +113,16 @@ class _Application {
 class _Printer {
     void show(final Package package) {
         print("${package.packagename.padRight(25)} -> ${package.lib.path}");
+    }
+}
+
+class _GlobalPrinter {
+    void show(final GlobalPackage package) {
+        if(package.hasPath) {
+            print("${package.packagename.padRight(25)} -> ${package.path.value}");
+        } else {
+            print("${package.packagename.padRight(25)}");
+        }
     }
 }
 
@@ -113,6 +140,18 @@ class _DetailsPrinter extends _Printer {
         print("    Resource: ${resource.toString()}");
     }
 }
+
+class _GlobalDetailsPrinter extends _GlobalPrinter {
+    void show(final GlobalPackage package) {
+        print("Name: ${package.packagename}");
+        print("    Version: ${package.version}");
+
+        if(package.hasPath) {
+            print("    Path: ${package.path.value}");
+        }
+    }
+}
+
 
 void _configLogging(final String loglevel) {
     hierarchicalLoggingEnabled = false; // set this to true - its part of Logging SDK

@@ -8,5 +8,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 import 'package:path/path.dart' as path;
+import 'package:optional/optional.dart';
 
 part "src/Packages.dart";
+part "src/mock.dart";
