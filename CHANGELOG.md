@@ -4,6 +4,7 @@ Resolves a package name to its path on your HD
 ## [Unreleased](http://github.com/mikemitterer/dart-packages/compare/v0.3...HEAD)
 
 ### Feature
+* Returns global + local packages with path [11a0332](https://github.com/mikemitterer/dart-packages/commit/11a03323270e8ecbd39ee364c0a618d22ca3a613)
 * Global-Package support [a111767](https://github.com/mikemitterer/dart-packages/commit/a111767e4e9f025896fb052a46b832da40e887c7)
 
 ## [v0.3](http://github.com/mikemitterer/dart-packages/compare/v0.2...v0.3) - 2017-12-13
