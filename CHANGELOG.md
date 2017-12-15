@@ -1,7 +1,12 @@
 # Change Log for packages
 Resolves a package name to its path on your HD
 
-## [Unreleased](http://github.com/mikemitterer/dart-packages/compare/v0.2...HEAD)
+## [Unreleased](http://github.com/mikemitterer/dart-packages/compare/v0.3...HEAD)
+
+### Feature
+* Global-Package support [a111767](https://github.com/mikemitterer/dart-packages/commit/a111767e4e9f025896fb052a46b832da40e887c7)
+
+## [v0.3](http://github.com/mikemitterer/dart-packages/compare/v0.2...v0.3) - 2017-12-13
 
 ### Refactor
 * Updated dependencies, Jenkins preparation [148b812](https://github.com/mikemitterer/dart-packages/commit/148b8129e1319acce106be4e059a451d66b5b5d6)
