@@ -43,6 +43,11 @@ main() async {
                         => package.version.startsWith(new RegExp(r"\d"))).length, equals(15));
         }); // end of 'Versions' test
 
+        test('> withPath', () async {
+            final List<PackageWithPath> withPath = await packages.withPath;
+            expect(withPath.length, greaterThanOrEqualTo(9));
+
+        }); // end of 'withPath' test
 
     });
     // End of 'simple' group

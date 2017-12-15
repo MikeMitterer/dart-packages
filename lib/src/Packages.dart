@@ -66,6 +66,23 @@ class Packages {
         return packages;
     }
 
+    /// Returns packages (global + local) with a path to the local filesystem
+    Future<List<PackageWithPath>> get withPath async {
+        final List<PackageWithPath> packages = new List<PackageWithPath>();
+        all.forEach((final Package package)
+            => packages.add(new PackageWithPath(package.packagename, package.root.toFilePath())));
+
+        (await globals).where((final GlobalPackage package) => package.hasPath)
+            .forEach((final GlobalPackage package){
+                final temp = new PackageWithPath(package.packagename, package.path.value);
+                if(!packages.contains(temp)) {
+                    packages.add(temp);
+                }
+        });
+        return packages;
+    }
+
+
     /// All packages activated via "pub global activate"
     Future<List<GlobalPackage>> get globals async {
         final packages = await _readGlobalPackages();
@@ -142,8 +159,24 @@ abstract class PackageBase {
     /// The packagename defined in pubspec.yaml
     final String packagename;
 
-  PackageBase(this.packagename);
+    PackageBase(this.packagename);
+}
 
+/// Some of the global packages dont have a path
+class PackageWithPath extends PackageBase {
+    final String path;
+
+    PackageWithPath(final String packagename, this.path) : super(packagename);
+
+    @override
+    bool operator ==(Object other) =>
+        identical(this, other) ||
+            other is PackageWithPath &&
+                runtimeType == other.runtimeType &&
+                path == other.path;
+
+    @override
+    int get hashCode => packagename.hashCode;
 }
 
 /// Details about the requested package
