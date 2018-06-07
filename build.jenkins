@@ -9,7 +9,7 @@ pipeline {
                     ansiColor('xterm') {
                         sh 'pub update'
 
-                        # Nur für die Test die Grinder voraussetzen
+                        // Nur für die Test die Grinder voraussetzen
                         sh 'pub global activate grinder'
                     }
                 }
