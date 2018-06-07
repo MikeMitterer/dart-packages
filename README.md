@@ -100,7 +100,7 @@ Uninstall 'Packages'
 
 ###License 
 
-    Copyright 2017 Michael Mitterer (office@mikemitterer.at),
+    Copyright 2018 Michael Mitterer (office@mikemitterer.at),
     IT-Consulting and Development Limited, Austrian Branch
 
     _____           _                         
