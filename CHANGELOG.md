@@ -1,7 +1,12 @@
 # Change Log for packages
 Resolves a package name to its path on your HD
 
-## [Unreleased](http://github.com/mikemitterer/dart-packages/compare/v0.3...HEAD)
+## [Unreleased](http://github.com/mikemitterer/dart-packages/compare/v0.4...HEAD)
+
+### Feature
+* Dart 2.x ready [4628a8d](https://github.com/mikemitterer/dart-packages/commit/4628a8deae189cf61316007efe9971f9b4196ab2)
+
+## [v0.4](http://github.com/mikemitterer/dart-packages/compare/v0.3...v0.4) - 2017-12-15
 
 ### Feature
 * Returns global + local packages with path [11a0332](https://github.com/mikemitterer/dart-packages/commit/11a03323270e8ecbd39ee364c0a618d22ca3a613)
